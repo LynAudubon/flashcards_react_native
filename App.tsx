@@ -15,18 +15,6 @@ export type StackParamList = {
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-// const Stack = createNativeStackNavigator({
-//     "Common Patterns": { screen: Patterns},
-//     "Flashcards": { screen: Flashcards},
-//     "Login": { screen: Login }
-//  }, 
-//  {
-//   defaultNavigationOptions: {
-//       title: 'Aligned Center',
-//       headerTitleAlign: 'center'
-//   }
-// });
-
  const App = () => {
   return (
       <NavigationContainer >         
@@ -46,9 +34,4 @@ const Stack = createNativeStackNavigator<StackParamList>();
   );
 };
 
-const styles=StyleSheet.create({
-  container: {
-    margin: 'auto'
-  }
-})
 export default App;
