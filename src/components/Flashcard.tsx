@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+
 
 type Props = {
     title: string;
 }
 
 const Flashcard: React.FC<Props> = ({title}) => {
+
     return (
+      
         <View style={styles.container}>
             <View>
                 <Text style={styles.text}>{title}</Text>

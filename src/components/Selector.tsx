@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import {View, Text, StyleSheet } from 'react-native';
+import {View, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-import FlashCards from '../screens/Flashcards';
+
+import { useContext } from 'react';
+import { PatternContext } from '../context/patternContext';
 
 interface Props {
     store: Array<pattern>
@@ -13,9 +15,8 @@ type pattern = {
 }
 
 const Selector: React.FC<Props> = ({store}) => {
-    const [selectedPattern, setSelectedPattern] = useState<any>('')
-
-    const pickerList = store.map((item, i) => {
+    const { selectedPattern, setSelectedPattern } = useContext(PatternContext);
+        const pickerList = store.map((item, i) => {
         return (
                 <Picker.Item key={i} label={item.title} value={item.title} />
             )
@@ -30,7 +31,7 @@ const Selector: React.FC<Props> = ({store}) => {
                 onValueChange={(itemValue) =>
                     setSelectedPattern(itemValue)
                 }>
-            <Picker.Item label= "Select a pattern..." value="" />
+            {/* <Picker.Item label= "Select a pattern..." value="" /> */}
             {pickerList}
             </Picker>
         </View>
