@@ -3,16 +3,15 @@ import { useRef, useState, useContext } from 'react';
 import { StyleSheet, View, Button, Animated} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import Flashcard from '../components/Flashcard';
+import FlashcardFront from '../components/FlashcardFront';
+import FlashcardBack from '../components/FlashcardBack';
 import Selector from '../components/Selector';
 import storePatterns from '../store';
 
 //import Context API
 import ContextProvider from '../context/patternContext';
-import { PatternContext } from '../context/patternContext';
 
 export default function FlashCards() {
-  const { selectedPattern } = useContext(PatternContext);
   const animate = useRef(new Animated.Value(0));
   const [cardFlipped, setCardFlipped] = useState(false);
 
@@ -43,10 +42,10 @@ export default function FlashCards() {
       <View>
           <View>
           <Animated.View style={[{ transform: [{ rotateY: interpolateFront}]}, styles.hidden]}>
-            <Flashcard title={selectedPattern ? selectedPattern : "FRONT"} />
+            <FlashcardFront />
           </Animated.View>
           <Animated.View style={[{transform: [{ rotateY: interpolateBack}]},styles.back, styles.hidden]}>
-            <Flashcard title={selectedPattern ? selectedPattern : "BACK"} />
+            <FlashcardBack />
           </Animated.View >
             <View style={styles.button}>
               <Button 
