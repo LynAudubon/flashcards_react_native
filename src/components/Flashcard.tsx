@@ -1,5 +1,6 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import PatternContext from '../context/patternContext'
 
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 }
 
 const Flashcard: React.FC<Props> = ({title}) => {
-
+const { selectedPattern } = useContext(PatternContext);
     return (
       
         <View style={styles.container}>
