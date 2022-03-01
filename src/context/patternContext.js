@@ -1,6 +1,5 @@
 import { useState, createContext  } from "react";
 
-
 export const PatternContext = createContext();
 
 function ContextProvider(props) {

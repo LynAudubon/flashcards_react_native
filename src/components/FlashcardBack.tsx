@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { PatternContext } from '../context/patternContext'
 
-const Flashcard: React.FC = () => {
+const FlashcardBack: React.FC = () => {
 const { selectedPattern } = useContext(PatternContext);
     return (
       
         <View style={styles.container}>
             <View>
-                <Text style={styles.text}>{selectedPattern}</Text>
+                <Text style={styles.text}>{selectedPattern.desc}</Text>
             </View>
         </View>
     ); 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Flashcard;
+export default FlashcardBack;
