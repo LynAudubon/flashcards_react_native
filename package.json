@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/picker": "^1.8.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "expo": "~44.0.0",
@@ -20,6 +21,7 @@
     "react-native-animation-library": "0.0.8",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {

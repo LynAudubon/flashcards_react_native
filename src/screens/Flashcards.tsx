@@ -1,15 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { useRef, useState } from 'react';
-import { StyleSheet, Text, View, Button, Animated} from 'react-native';
+import { useRef, useState, useContext } from 'react';
+import { StyleSheet, View, KeyboardAvoidingView, Animated, TextInput, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import Flashcard from '../components/Flashcard';
-import Patterns from '../components/Patterns';
-import Menu from '../components/Menu';
-import commonPatterns from '../store'
+
+import FlashcardFront from '../components/FlashcardFront';
+import FlashcardBack from '../components/FlashcardBack';
+import Selector from '../components/Selector';
+import storePatterns from '../store';
+
+//import Context API
+import ContextProvider from '../context/patternContext';
 
 export default function FlashCards() {
   const animate = useRef(new Animated.Value(0));
   const [cardFlipped, setCardFlipped] = useState(false);
+  const [textVal, setTextVal] = useState('')
 
   const interpolateFront = animate.current.interpolate({
     inputRange: [0, 180],
@@ -22,7 +28,6 @@ export default function FlashCards() {
 
 
   const handleFlip = () => {
-    console.log(<Patterns store={commonPatterns}/>);
     Animated.timing(animate.current, {
       duration: 300,
       toValue: cardFlipped ? 0 : 180,
@@ -33,34 +38,52 @@ export default function FlashCards() {
   };
 
   return (
+    <ContextProvider>
+    <View style={styles.container}>
+      <Selector store={storePatterns}/>
       <View>
-          <Menu />
-    <View >
-        <View style={styles.container}>
-        <Animated.View style={[{ transform: [{ rotateY: interpolateFront}]}, styles.hidden]}>
-          <Flashcard title="Front" />
-        </Animated.View>
-        <Animated.View style={[{transform: [{ rotateY: interpolateBack}]},styles.back, styles.hidden]}>
-          <Flashcard title="Back" />
-        </Animated.View >
-          <View style={styles.button}>
-            <Button 
-              title="Answer"
-              onPress={handleFlip}/>
-          </View>
+          <View>
+          <Animated.View style={[{ transform: [{ rotateY: interpolateFront}]}, styles.hidden]}>
+            <FlashcardFront />
+          </Animated.View>
+          <Animated.View style={[{transform: [{ rotateY: interpolateBack}]},styles.back, styles.hidden]}>
+            <FlashcardBack />
+          </Animated.View >
+        </View>
+        <View style={styles.textAreaBox}>
+          <TextInput
+          style={styles.textArea}
+          underlineColorAndroid="transparent"
+          placeholder="Type your own pseudocode"
+          placeholderTextColor="grey"
+          numberOfLines={10}
+          multiline={true}
+          value={textVal}
+          onChangeText={setTextVal}
+          >
+        </TextInput>
+        <View style={styles.twoButtons}>
+          <TouchableOpacity onPress={() => setTextVal('')}><MaterialCommunityIcons name="text-box-remove-outline" size={24} color="white" /></TouchableOpacity>
+          <TouchableOpacity 
+          style={styles.btn}
+          onPress={handleFlip}><p>{cardFlipped ? 'PROBLEM' : 'SOLUTION'}</p></TouchableOpacity>
+          <TouchableOpacity onPress={() => alert("Great Work!")}><MaterialCommunityIcons name="clipboard-check-outline" size={24} color="white" /></TouchableOpacity>
+        </View>
+        </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
     </View>
-    </View>
+    </ContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: 'cornflowerblue',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 10
   },
   hidden: {
     backfaceVisibility: 'hidden',
@@ -69,7 +92,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
   },
-  button: {
-    padding: 5
+  textAreaBox: {
+    backgroundColor: 'gainsboro',
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  textArea: {
+    height: 170,
+    padding: 5,
+    zIndex: 1
+  },
+  btn: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  twoButtons: {
+    backgroundColor: 'darkslateblue',
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'relative',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 });
