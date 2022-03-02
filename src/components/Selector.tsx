@@ -67,8 +67,8 @@ const Selector: React.FC<Props> = ({store}) => {
 const styles = StyleSheet.create({
     container: {
         margin: 'auto',
-        backgroundColor: 'purple',
-        padding: 10
+        backgroundColor: 'none',
+        padding: 5
     },
     placeholder: {
         color: 'gray'

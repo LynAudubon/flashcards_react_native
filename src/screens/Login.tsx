@@ -7,7 +7,7 @@ import Selector from '../components/Selector';
 const Login = () => {
   return (
     <View>
-       <Selector store={storePatterns}/>
+     
     </View>
   );
 };

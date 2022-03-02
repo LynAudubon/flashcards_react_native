@@ -1,6 +1,7 @@
 import { useState, createContext  } from "react";
+import patternInitialState from './patternInitialState';
 
-export const PatternContext = createContext();
+export const PatternContext = createContext(patternInitialState);
 
 function ContextProvider(props) {
 

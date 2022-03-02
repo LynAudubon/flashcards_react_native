@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, LayoutAnimation, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import Menu from './Menu';
+import Menu from '../components/Menu';
 
 interface Props {
     store: Array<pattern>
@@ -54,18 +54,22 @@ const Patterns: React.FC<Props> = ({store}) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "lightblue",
+        backgroundColor: "none",
         margin: "auto",
     },
     list: {
-        padding: 10
+        padding: 15
     },
     selection: {
-        borderRadius: 50,
+        display: 'flex',
+        borderRadius: 10,
         borderWidth: 1,
         borderColor: 'white',
         borderStyle: 'solid',
-        textAlign: 'center',
+        backgroundColor: 'darkslateblue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
         width: 500,
         height: 50
     },
@@ -74,6 +78,11 @@ const styles = StyleSheet.create({
         fontSize: 10,
     },
     info: {
+        borderRadius: 1,
+        borderWidth: 1,
+        borderColor: 'white',
+        borderStyle: 'solid',
+        backgroundColor: 'honeydew',
         width: 500,
         height: 130,
         textAlign: 'center',

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useRef, useState, useContext } from 'react';
-import { StyleSheet, View, Button, Animated} from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Animated, TextInput, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import FlashcardFront from '../components/FlashcardFront';
@@ -14,6 +15,7 @@ import ContextProvider from '../context/patternContext';
 export default function FlashCards() {
   const animate = useRef(new Animated.Value(0));
   const [cardFlipped, setCardFlipped] = useState(false);
+  const [textVal, setTextVal] = useState('')
 
   const interpolateFront = animate.current.interpolate({
     inputRange: [0, 180],
@@ -47,11 +49,26 @@ export default function FlashCards() {
           <Animated.View style={[{transform: [{ rotateY: interpolateBack}]},styles.back, styles.hidden]}>
             <FlashcardBack />
           </Animated.View >
-            <View style={styles.button}>
-              <Button 
-                title={cardFlipped ? 'PROBLEM' : 'SOLUTION'}
-                onPress={handleFlip}/>
-            </View>
+        </View>
+        <View style={styles.textAreaBox}>
+          <TextInput
+          style={styles.textArea}
+          underlineColorAndroid="transparent"
+          placeholder="Type your own pseudocode"
+          placeholderTextColor="grey"
+          numberOfLines={10}
+          multiline={true}
+          value={textVal}
+          onChangeText={setTextVal}
+          >
+        </TextInput>
+        <View style={styles.twoButtons}>
+          <TouchableOpacity onPress={() => setTextVal('')}><MaterialCommunityIcons name="text-box-remove-outline" size={24} color="white" /></TouchableOpacity>
+          <TouchableOpacity 
+          style={styles.btn}
+          onPress={handleFlip}><p>{cardFlipped ? 'PROBLEM' : 'SOLUTION'}</p></TouchableOpacity>
+          <TouchableOpacity onPress={() => alert("Great Work!")}><MaterialCommunityIcons name="clipboard-check-outline" size={24} color="white" /></TouchableOpacity>
+        </View>
         </View>
         <StatusBar style="auto" />
       </View>
@@ -63,7 +80,7 @@ export default function FlashCards() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'purple',
+    backgroundColor: 'cornflowerblue',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10
@@ -75,7 +92,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
   },
-  button: {
-    padding: 5
+  textAreaBox: {
+    backgroundColor: 'gainsboro',
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  textArea: {
+    height: 170,
+    padding: 5,
+    zIndex: 1
+  },
+  btn: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  twoButtons: {
+    backgroundColor: 'darkslateblue',
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'relative',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 });
